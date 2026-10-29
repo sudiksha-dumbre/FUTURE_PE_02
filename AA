@@ -1,0 +1,57 @@
+Airflow
+├── airflow
+│   └── dags
+│       └── simple_test_dag.py
+├── Dockerfile
+└── docker-compose.yaml
+
+Dockerfile
+FROM apache/airflow:2.8.4
+USER root
+RUN apt-get update && \
+    apt-get install -y git && \
+    apt-get clean
+USER airflow
+
+docker-compose.yaml
+version: '3'
+services:
+  airflow:
+    image: my-airflow:latest
+    volumes:
+      - ./airflow:/opt/airflow
+    ports:
+      - "8080:8080"
+    command: airflow standalone
+
+simple_test_dag.py (inside airflow/dags/)
+from datetime import datetime
+from airflow import DAG
+from airflow.operators.empty import EmptyOperator
+from airflow.operators.python import PythonOperator
+def say_hello():
+    print("Hello, Airflow!")
+def show_date():
+    print("Today's date is:", datetime.now())
+with DAG(
+    dag_id="simple_test_dag",
+    start_date=datetime(2024, 1, 1),
+    schedule="@daily",
+    catchup=False,
+    tags=["experiment"],
+) as dag:
+    start = EmptyOperator(task_id="start")
+    print_hello = PythonOperator(
+        task_id="print_hello",
+        python_callable=say_hello,    )
+    print_date = PythonOperator(
+        task_id="print_date",
+        python_callable=show_date,    )
+    start >> [print_hello, print_date]
+
+TERMINAL
+docker build -t my-airflow:latest .
+docker compose up
+http://localhost:8080
+username- admin
+pass-airflow/standalone_admin_password.txt
