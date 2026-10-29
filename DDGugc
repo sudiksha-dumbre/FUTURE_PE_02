@@ -1,0 +1,79 @@
+cont
+
+Folder- Docker exam
+Vs code-
+ *app.py* 
+print("This is my first image of docker")
+ *Dockerfile*
+FROM python
+WORKDIR /app
+COPY . /app
+CMD ["python3","app.py"]
+ *Terminal*
+docker build -t python-image . 
+docker run --name firstpy python-image
+ *Fail*
+docker rm firstpy
+docker run --name firstpy python-image
+
+compo
+Folder - DockerComposeFile
+ *VS Code* 
+ docker-compose.yml
+ version: '3'
+ services:
+   web:
+     image: nginx
+     ports:
+       - 9090:80
+   database:
+     image: redis
+ *Terminal* in fold
+ docker-compose -v
+ docker-compose config
+ docker-compose up -d
+ docker ps
+ *Output* seen
+ docker-compose down
+ _Edit_ *(add port)
+ *Terminal* 
+ docker-compose config
+ docker-compose up -d
+ docker ps
+ _localhost:9090_ will open
+ Output: Welcome to nginx!
+ *Terminal* 
+ docker-compose down
+ docker-compose up -d --scale database=4
+ docker ps
+ *Output* 
+ *Terminal* 
+ docker-cmpose down
+
+
+git --version
+cd /d "%USERPROFILE%"
+mkdir Git_Exam_2026
+cd Git_Exam_2026
+git init
+git config user.name "Sudiksha"
+git config user.email "YOUR_GITHUB_EMAIL"
+echo Hello Git > hello.txt
+dir
+git status
+git add hello.txt
+git commit -m "First commit"
+git log
+git log --oneline
+git branch -M main
+echo Second line >> hello.txt
+git status
+git add hello.txt
+git commit -m "Second commit"
+git log --oneline
+git remote add origin COPY PASTE
+git remote -v
+git -c credential.helper= push -u origin main
+git status
+git -c credential.helper= pull
+git -c credential.helper= push
