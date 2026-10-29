@@ -55,3 +55,75 @@ docker compose up
 http://localhost:8080
 username- admin
 pass-airflow/standalone_admin_password.txt
+
+
+
+git --version
+
+mkdir git-demo
+cd git-demo
+
+echo "Hello Git" > index.html
+
+git init
+git status
+
+git add index.html
+git status
+
+git config --global user.name "Vedanti"
+git config --global user.email "vedantichavan0711@gmail.com"
+
+git commit -m "Initial commit"
+git status
+
+echo "Welcome to Git Practical" >> index.html
+
+git status
+
+git add index.html
+git status
+
+git commit -m "Updated index page"
+
+git branch feature
+git branch
+
+git checkout feature
+git branch
+
+echo "Feature added by collaborator" >> index.html
+
+git add index.html
+git commit -m "Added new feature"
+
+git checkout master
+
+git merge feature
+
+git status
+
+git log --oneline
+
+
+jenkins-pipeline script
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building project...'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing project...'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying project...'
+            }
+        }
+    }
+}
